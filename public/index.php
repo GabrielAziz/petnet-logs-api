@@ -1,24 +1,20 @@
 <?php
-
-// Importa o autoload do Composer (slim e dependencias)
+require_once __DIR__ . '/../src/config/env.php';
+// Carrega o autoload do Composer, responsável por localizar e carregar automaticamente as classes do projeto
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// Importa o slim framework
 use Slim\Factory\AppFactory;
 
+
+// Cria a aplicação Slim
 $app = AppFactory::create();
 
-// converte json
+// Converte o body da requisição JSON em array PHP
 $app->addBodyParsingMiddleware();
 
+// Habilita tratamento de erros da aplicação
+$app->addErrorMiddleware(false, true, true);
 
-$app->get('/health', function ($request, $response) {
-
-    $text = "A api está ONLINE";
-
-    $response->getBody()->write($text);
-
-    return $response->withHeader('Content-Type', 'application/json');
-});
+require_once __DIR__ . '/../src/routes/logs.php';
 
 $app->run();
