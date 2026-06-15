@@ -23,6 +23,7 @@ $app->add(function (Request $request, Handler $handler) use ($allowedOrigins): R
         $response = new Response();
         return $response
             ->withHeader('Access-Control-Allow-Origin', $allowOrigin)
+            ->withHeader('Access-Control-Allow-Credentials', 'true')
             ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
             ->withStatus(200);
@@ -31,6 +32,7 @@ $app->add(function (Request $request, Handler $handler) use ($allowedOrigins): R
     $response = $handler->handle($request);
     return $response
         ->withHeader('Access-Control-Allow-Origin', $allowOrigin)
+        ->withHeader('Access-Control-Allow-Credentials', 'true')
         ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 });
